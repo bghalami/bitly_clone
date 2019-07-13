@@ -5,6 +5,7 @@ defmodule UrlShorterner.Application do
 
   def start(_type, _args) do
     children = [
+      {UrlShorterner.Cache, []},
       UrlShorterner.Repo,
       UrlShorternerWeb.Endpoint
     ]

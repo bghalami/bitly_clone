@@ -27,7 +27,7 @@ defmodule UrlShorterner.MixProject do
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
-  
+
   defp deps do
     [
       {:phoenix, "~> 1.4.9"},
@@ -38,7 +38,8 @@ defmodule UrlShorterner.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:base62, "~> 1.2"}
+      {:base62, "~> 1.2"},
+      {:con_cache, "~> 0.13"}
     ]
   end
 
