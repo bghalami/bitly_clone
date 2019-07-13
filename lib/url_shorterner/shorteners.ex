@@ -8,6 +8,8 @@ defmodule UrlShorterner.Shorteners do
 
   alias UrlShorterner.Shorteners.URL
 
+  alias UrlShorterner.Cache
+
   @doc """
   Returns the list of urls.
 
@@ -50,9 +52,12 @@ defmodule UrlShorterner.Shorteners do
 
   """
   def create_url(attrs \\ %{}) do
+    {:ok, url} =
     %URL{}
     |> URL.changeset(attrs)
     |> Repo.insert()
+    Cache.insert_url(url)
+    {:ok, url}
   end
 
   @doc """
