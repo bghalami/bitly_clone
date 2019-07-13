@@ -32,7 +32,7 @@ defmodule UrlShorternerWeb.URLControllerTest do
 
   describe "create url" do
     test "renders url when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.url_path(conn, :create), url: @create_attrs)
+      conn = post(conn, Routes.url_path(conn, :create), url_to_shorten: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.url_path(conn, :show, id))
@@ -44,7 +44,7 @@ defmodule UrlShorternerWeb.URLControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.url_path(conn, :create), url: @invalid_attrs)
+      conn = post(conn, Routes.url_path(conn, :create), url_to_shorten: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end

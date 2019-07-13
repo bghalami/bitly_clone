@@ -12,6 +12,7 @@ defmodule UrlShorternerWeb.URLView do
 
   def render("url.json", %{url: url}) do
     %{id: url.id,
+      short_url: Base62.encode(url.id),
       long_url: url.long_url}
   end
 end

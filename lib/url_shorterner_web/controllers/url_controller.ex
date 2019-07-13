@@ -11,7 +11,7 @@ defmodule UrlShorternerWeb.URLController do
     render(conn, "index.json", urls: urls)
   end
 
-  def create(conn, %{"url" => url_params}) do
+  def create(conn, %{"url_to_shorten" => url_params}) do
     with {:ok, %URL{} = url} <- Shorteners.create_url(url_params) do
       conn
       |> put_status(:created)
@@ -40,4 +40,11 @@ defmodule UrlShorternerWeb.URLController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def short_url_redirect(conn, %{"short_url_redirect" => short_url}) do
+    {:ok, url} = Base62.decode(short_url)
+    url_row = Shorteners.get_url!(url)
+    redirect(conn, external: url_row.long_url)
+  end
+
 end
