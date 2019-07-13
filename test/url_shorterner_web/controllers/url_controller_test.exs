@@ -84,8 +84,29 @@ defmodule UrlShorternerWeb.URLControllerTest do
     end
   end
 
+  describe "redirect short url" do
+    setup [:create_url]
+    test "renders url when data is valid", map = %{conn: conn} do
+      conn = get(conn, Routes.url_path(conn, :short_url_redirect, Base62.encode(map.url.id)))
+      assert conn.status == 302
+
+      # conn = get(conn, Routes.url_path(conn, :show, id))
+      #
+      # assert %{
+      #          "id" => id,
+      #          "long_url" => "some long_url"
+      #        } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.url_path(conn, :create), url_to_shorten: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
   defp create_url(_) do
     url = fixture(:url)
     {:ok, url: url}
   end
+
 end
