@@ -7,7 +7,8 @@ defmodule UrlShorterner.Application do
     children = [
       {UrlShorterner.Cache, []},
       UrlShorterner.Repo,
-      UrlShorternerWeb.Endpoint
+      UrlShorternerWeb.Endpoint,
+      {ConCache, [name: :my_cache, ttl_check_interval: false]}
     ]
 
     opts = [strategy: :one_for_one, name: UrlShorterner.Supervisor]
