@@ -21,7 +21,9 @@ defmodule UrlShorternerWeb.URLControllerTest do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
 
+
   describe "index" do
+    @tag :skip
     test "lists all urls", %{conn: conn} do
       conn = get(conn, Routes.url_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
@@ -49,7 +51,7 @@ defmodule UrlShorternerWeb.URLControllerTest do
 
   describe "update url" do
     setup [:create_url]
-
+    @tag :skip
     test "renders url when data is valid", %{conn: conn, url: %URL{id: id} = url} do
       conn = put(conn, Routes.url_path(conn, :update, url), url: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
@@ -62,6 +64,7 @@ defmodule UrlShorternerWeb.URLControllerTest do
              } = json_response(conn, 200)["data"]
     end
 
+    @tag :skip
     test "renders errors when data is invalid", %{conn: conn, url: url} do
       conn = put(conn, Routes.url_path(conn, :update, url), url: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}

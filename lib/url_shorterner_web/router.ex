@@ -8,4 +8,6 @@ defmodule UrlShorternerWeb.Router do
   scope "/api", UrlShorternerWeb do
     pipe_through :api
   end
+
+  resources "/urls", UrlShorternerWeb.URLController, only: [:create, :show, :delete]
 end
